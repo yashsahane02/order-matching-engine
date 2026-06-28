@@ -3,7 +3,7 @@ package com.sahane.yash.model;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public class OrderBook {
+public class Trade {
 
 
     private String tradeId;
@@ -17,7 +17,7 @@ public class OrderBook {
 
     private Instant timestamp;
 
-    public OrderBook(int buyOrsellQty, BigDecimal price, String buyOrderId, String sellOrderId, Instant timestamp, String tradeId) {
+    public Trade(int buyOrsellQty, BigDecimal price, String buyOrderId, String sellOrderId, Instant timestamp, String tradeId) {
         this.buyOrsellQty = buyOrsellQty;
         this.price = price;
         this.buyOrderId = buyOrderId;

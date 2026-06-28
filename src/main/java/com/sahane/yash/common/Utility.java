@@ -1,7 +1,7 @@
 package com.sahane.yash.common;
 
 import com.sahane.yash.model.Order;
-import com.sahane.yash.model.OrderBook;
+import com.sahane.yash.model.Trade;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -66,7 +66,7 @@ public class Utility {
 
 
     //Matched orders
-    public static List<OrderBook> matchedOrderList = new ArrayList<>();
+    public static List<Trade> matchedOrderList = new ArrayList<>();
 
     //ORDER MATCHING QUEUE
     public static BlockingQueue<Order> incomingOrderQueue = new LinkedBlockingQueue<>();

@@ -1,10 +1,10 @@
 package com.sahane.yash.engine;
 
-import com.sahane.yash.common.Utility;
 import com.sahane.yash.model.Order;
-import com.sahane.yash.model.OrderBook;
+import com.sahane.yash.model.Trade;
 
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 import static com.sahane.yash.common.Utility.*;
@@ -35,7 +35,7 @@ public class OrderMatchingEngine {
                     break;
             }
 
-            executeTrade(buyOrder, sellOrder);
+            executeTrade(buyOrder, sellOrder, sellOrder);
 
             // Remove the resting sell order if fully executed
             if (sellOrder.getQuantity() == 0) {
@@ -58,7 +58,7 @@ public class OrderMatchingEngine {
                     break;
             }
 
-            executeTrade(buyOrder, sellOrder);
+            executeTrade(buyOrder, sellOrder, buyOrder);
 
             // Remove the resting buy order if fully executed
             if (buyOrder.getQuantity() == 0) {
@@ -72,7 +72,7 @@ public class OrderMatchingEngine {
         System.out.println("Sell Queue Size : " + sellQueue.size());
     }
 
-    private void executeTrade(Order buyOrder, Order sellOrder) {
+    private void executeTrade(Order buyOrder, Order sellOrder, Order restingOrder) {
 
         int tradedQty = Math.min(
                 buyOrder.getQuantity(),
@@ -84,10 +84,12 @@ public class OrderMatchingEngine {
         sellOrder.setQuantity(
                 sellOrder.getQuantity() - tradedQty);
 
+        BigDecimal tradePrice = restingOrder.getPrice();
 
-        OrderBook trade = new OrderBook(
+
+        Trade trade = new Trade(
                 tradedQty,
-                sellOrder.getPrice(),
+                tradePrice,
                 buyOrder.getOrderId(),
                 sellOrder.getOrderId(),
                 Instant.now(),
