@@ -1,13 +1,18 @@
 package com.sahane.yash.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.concurrent.atomic.AtomicLong;
+import com.sahane.yash.common.Utility.*;
+
 
 public class Order {
-    private long orderId;
+    private String orderId; //format YYYYMMDD+ AtomicLong
 
     private OrderSide orderSide;
 
-    private double price;
+    private BigDecimal price;
 
     private int quantity;
 
@@ -15,32 +20,37 @@ public class Order {
 
     private OrderType orderType;
 
-    private long timestamp;
+    private Instant timestamp;
 
-    public Order(long orderId, OrderSide orderSide, double price, int quantity, OrderType orderType) {
+    private static final AtomicLong order = new AtomicLong(0);
+    public Order(String orderId, OrderSide orderSide, BigDecimal price, int quantity) {
         this.orderId = orderId;
         this.orderSide = orderSide;
         this.price = price;
         this.quantity = quantity;
         this.orderStatus = OrderStatus.NEW;
-        this.orderType = orderType;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = Instant.now();
+        if(getPrice().compareTo(new BigDecimal(0)) == 0){
+            this.orderType = OrderType.MARKET;
+        } else {
+            this.orderType = OrderType.LIMIT;
+        }
     }
 
 
-    public long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -76,11 +86,11 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public long getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

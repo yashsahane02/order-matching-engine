@@ -1,16 +1,38 @@
 package com.sahane.yash.model;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+
 public class OrderBook {
+
+
+    private String tradeId;
     private int buyOrsellQty;
 
-    private double price;
+    private BigDecimal price;
 
-    private long buyOrderId;
+    private String buyOrderId;
 
-    private long sellOrderId;
+    private String sellOrderId;
 
-    private long timestamp;
+    private Instant timestamp;
 
+    public OrderBook(int buyOrsellQty, BigDecimal price, String buyOrderId, String sellOrderId, Instant timestamp, String tradeId) {
+        this.buyOrsellQty = buyOrsellQty;
+        this.price = price;
+        this.buyOrderId = buyOrderId;
+        this.sellOrderId = sellOrderId;
+        this.timestamp = timestamp;
+        this.tradeId = tradeId;
+    }
+
+    public String getTradeId() {
+        return tradeId;
+    }
+
+    public void setTradeId(String tradeId) {
+        this.tradeId = tradeId;
+    }
     public int getBuyOrsellQty() {
         return buyOrsellQty;
     }
@@ -19,35 +41,47 @@ public class OrderBook {
         this.buyOrsellQty = buyOrsellQty;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public long getBuyOrderId() {
+    public String getBuyOrderId() {
         return buyOrderId;
     }
 
-    public void setBuyOrderId(long buyOrderId) {
+    public void setBuyOrderId(String buyOrderId) {
         this.buyOrderId = buyOrderId;
     }
 
-    public long getSellOrderId() {
+    public String getSellOrderId() {
         return sellOrderId;
     }
 
-    public void setSellOrderId(long sellOrderId) {
+    public void setSellOrderId(String sellOrderId) {
         this.sellOrderId = sellOrderId;
     }
 
-    public long getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderBook{" +
+                "tradeId='" + tradeId + '\'' +
+                ", buyOrsellQty=" + buyOrsellQty +
+                ", price=" + price +
+                ", buyOrderId='" + buyOrderId + '\'' +
+                ", sellOrderId='" + sellOrderId + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }
